@@ -1,20 +1,12 @@
-const express = require('express');
-const { getAllGames, getGameById, createGame, updateGame, deleteGame } = require('../controllers/gamesController');
+const express = require("express");
 const router = express.Router();
+const gamesController = require("../controllers/gamesController");
 
-// get all games
-router.get('/getall', getAllGames);
-
-// get game by id
-router.get('/get/:id', getGameById);
-
-// create game
-router.post('/create', createGame);
-
-// update game
-router.put('/update/:id', updateGame);
-
-// delete game
-router.delete('/delete/:id', deleteGame);
+// Define routes for games
+router.get("/", gamesController.getAllGames); // Lấy tất cả game
+router.get("/:id", gamesController.getGameById); // Lấy game theo id
+router.post("/create", gamesController.createGame); // Tạo mới game
+router.put("/update/:id", gamesController.updateGame); // Cập nhật game
+router.delete("/delete/:id", gamesController.deleteGame); // Xóa game
 
 module.exports = router;

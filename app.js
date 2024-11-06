@@ -1,24 +1,44 @@
 const express = require('express');
 const app = express();
-const cors = require('cors');
+const userRoutes = require('./src/routes/userRoutes');
+const adminRoutes = require('./src/routes/adminRoutes');
+const favoritesRoutes = require('./src/routes/favoritesRoutes');
+const gameLogsRoutes = require('./src/routes/gameLogsRoutes');
+const gamesRoutes = require('./src/routes/gamesRoutes');
+const scoreRoutes = require('./src/routes/scoreRoutes');
+require('dotenv').config();
+const connection = require('./src/config/index.js');
+
+// Body parser middleware
 app.use(express.json());
 
+// API Routes
+app.use("/api/users", userRoutes);
+app.use("/api/admins", adminRoutes);
+app.use("/api/favorites", favoritesRoutes);
+app.use("/api/gamelogs", gameLogsRoutes);
+app.use("/api/games", gamesRoutes);
+app.use("/api/scores", scoreRoutes);
+// Route chính cho root
+app.get('/', (req, res) => {
+    res.send('Welcome to the API!');
+});
+// Start server
+const PORT = process.env.PORT || 8080;
+app.listen(PORT, () => {
+    console.log(`Server is running at http://localhost:${PORT}`);
+});
 
-const port  =  5000;
-app.use(cors());
-const connection = require('./src/config/index');
-app.use('/api/user', require('./src/routes/userRoutes'))
-app.use('/api/admin', require('./src/routes/adminRoutes'))
-app.use('/api/games', require('./src/routes/gamesRoutes'))
-app.use('/api/score', require('./src/routes/scoreRoutes'))
-// connect db
-connection.query('SELECT 1').then(()=>{
-    console.log('connect db success')
-    app.listen(port, () => {
-        console.log(`Server running at http://localhost:${port}/`);
-      });
-}).catch(err=>{
-    console.log('connect db failed', err)
-})
+
+
+
+app.get('/test-db', async (req, res) => {
+    try {
+        const [rows] = await connection.query('SELECT 1 + 1 AS result');
+        res.send(`Database connection successful: ${rows[0].result}`);
+    } catch (error) {
+        res.status(500).send(`Database connection failed: ${error.message}`);
+    }
+});
 
 

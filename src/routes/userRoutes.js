@@ -1,24 +1,13 @@
-const express = require('express');
-const { getAllUser, getUserById, createUser, updateUser, deleteUser, loginUser, registerUser } = require('../controllers/userController');
+const express = require("express");
 const router = express.Router();
+const userController = require("../controllers/userController");
 
-// get all user
-router.get('/getall', getAllUser);
-// get by id user
-router.get('/get/:id', getUserById);
+router.get("/", userController.getAllUser); // Lấy tất cả user
+router.get("/:id", userController.getUserById); // Lấy user theo id
+router.post("/create", userController.createUser); // Tạo mới user
+router.put("/update/:id", userController.updateUser); // Cập nhật thông tin user
+router.delete("/delete/:id", userController.deleteUser); // Xóa user
+router.post("/login", userController.loginUser); // Đăng nhập
+router.post("/register", userController.registerUser); // Đăng ký
 
-// create user
-router.post('/create', createUser);
-
-// update user
-router.put('/update/:id', updateUser);
-
-// delete user
-router.delete('/delete/:id', deleteUser);
-
-// login user
-router.post('/login', loginUser);
-
-// register user
-router.post('/register', registerUser);
 module.exports = router;
