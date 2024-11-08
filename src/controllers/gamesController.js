@@ -129,9 +129,5 @@ module.exports = {
     createGame,
     updateGame,
     deleteGame,
-    getUehReview,
-    getUehGreen,
-    getEduGames,
-    getTopGame,
     getGameByTag
 }
