@@ -24,7 +24,7 @@ const getUehReview = async (req, res) => {
    
 
     try {
-        const data = await connection.query(' SELECT * FROM games WHERE tag = "uehreview" ');
+        const [data] = await connection.query(' SELECT * FROM games WHERE tag = ?',[tag] );
         res.status(200).send({ data: data[0] });
         if(!data){
             return res.status(400).send({
