@@ -24,7 +24,7 @@ const getUehReview = async (req, res) => {
    
 
     try {
-        const [data] = await connection.query(' SELECT * FROM games WHERE tag = ?',[tag] );
+        const data = await connection.query(' SELECT * FROM games WHERE tag = "uehreview" ');
         res.status(200).send({ data: data[0] });
         if(!data){
             return res.status(400).send({
@@ -38,20 +38,21 @@ const getUehReview = async (req, res) => {
 }  
 
 const getUehGreen = async (req, res) => {
+   
+
     try {
-        const {tag }=req.params;
-        const data = await connection.query(`SELECT * FROM games WHERE tag = ${tag}`);
+        const data = await connection.query(' SELECT * FROM games WHERE tag = "uehgreen" ');
         res.status(200).send({ data: data[0] });
-        if (!data) {
+        if(!data){
             return res.status(400).send({
                 success: false,
-                message: 'Get game by tag failed'
-            });
+                message: 'Get all games failed'
+            })
         }
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
-};
+}  
 
 
 //
