@@ -36,17 +36,16 @@ const getUehReview = async (req, res) => {
         res.status(500).json({ error: error.message });
     }
 }  
-//
 
 const getUehGreen = async (req, res) => {
     try {
-        // Sử dụng câu lệnh SQL trực tiếp với giá trị 'uehgreen'
-        const data = await connection.query('SELECT * FROM games WHERE tag = "uehgreen"');
+        const {tag }=req.params;
+        const data = await connection.query(`SELECT * FROM games WHERE tag = ${tag}`);
         res.status(200).send({ data: data[0] });
         if (!data) {
             return res.status(400).send({
                 success: false,
-                message: 'Get uehgreen games failed'
+                message: 'Get game by tag failed'
             });
         }
     } catch (error) {

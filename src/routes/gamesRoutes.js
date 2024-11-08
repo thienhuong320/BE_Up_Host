@@ -13,7 +13,7 @@ router.delete("/delete/:id", gamesController.deleteGame); // Xóa game
 // lấy top game
 router.get('/topgame', gamesController.getTopGame);
 // Lấy game theo tag uehreview 
-router.get('/uehreview', gamesController.getUehReview);
+router.get('/:tag', gamesController.getUehReview);
 // Lấy game theo tag uehgreen
 router.get('/uehgreen', gamesController.getUehGreen);
 // Lấy game theo tag edugames
