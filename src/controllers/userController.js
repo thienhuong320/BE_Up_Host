@@ -172,7 +172,7 @@ const registerUser = async (req, res) => {
 // get total users count
 const getTotalUsersCount = async (req, res) => {
     try {
-        const [data] = await connection.query('SELECT COUNT(*) AS total_users FROM user');
+        const [data] = await connection.query('SELECT COUNT(id) AS total_users FROM user;');
         
         // Trả về tổng số người dùng
         res.status(200).send({
