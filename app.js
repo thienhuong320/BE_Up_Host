@@ -11,7 +11,8 @@ const connection = require('./src/config/index.js');
 
 // Body parser middleware
 app.use(express.json());
-
+const cors = require('cors');
+app.use(cors());
 // API Routes
 app.use("/api/users", userRoutes);
 app.use("/api/admins", adminRoutes);
