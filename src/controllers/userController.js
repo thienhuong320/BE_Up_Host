@@ -178,9 +178,7 @@ const getTotalUsersCount = async (req, res) => {
         res.status(200).send({
             success: true,
             message: 'Get total user count success',
-            data: {
-                total_users: data[0].total_users // Lấy giá trị đếm từ truy vấn
-            }
+            data: data
         });
     } catch (error) {
         res.status(500).json({ error: error.message });
