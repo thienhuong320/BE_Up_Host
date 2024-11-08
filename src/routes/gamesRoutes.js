@@ -9,6 +9,7 @@ router.get("/:id", gamesController.getGameById); // Lấy game theo id
 router.post("/create", gamesController.createGame); // Tạo mới game
 router.put("/update/:id", gamesController.updateGame); // Cập nhật game
 router.delete("/delete/:id", gamesController.deleteGame); // Xóa game
+router.get('/tag/:tag', gamesController.getGameByTag);
 
 // lấy top game
 router.get("/topgame", gamesController.getTopGame);

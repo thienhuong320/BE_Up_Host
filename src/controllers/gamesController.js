@@ -90,6 +90,26 @@ const getTopGame = async (req, res) => {
         res.status(500).json({ error: error.message });
     }
 } 
+
+const getGameByTag = async (req, res) => {
+    try {
+        const { tag } = req.params; // Lấy tag từ req.params
+        const data = await connection.query('SELECT * FROM games WHERE tag = ?', [tag]);
+
+        if (!data || data.length === 0) {
+            return res.status(400).send({
+                success: false,
+                message: 'No game found for the specified tag'
+            });
+        }
+
+        res.status(200).send({ data: data[0] });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
+
+
 const getGameById = async (req, res) => {
    
   
@@ -182,5 +202,6 @@ module.exports = {
     getUehReview,
     getUehGreen,
     getEduGames,
-    getTopGame
+    getTopGame,
+    getGameByTag
 }
