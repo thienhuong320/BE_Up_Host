@@ -175,18 +175,29 @@ const getTotalUsersCount = async (req, res) => {
         // Truy vấn đếm số lượng bản ghi trong bảng user
         const [data] = await connection.query('SELECT COUNT(*) FROM user');
         
-        // Trả về tổng số người dùng
-        res.status(200).send({
-            success: true,
-            message: 'Get total user count success',
-            data: {
-                total_users: data[0]['COUNT(*)'] // Lấy kết quả từ cột COUNT(*)
-            }
-        });
+        console.log(data);  // In ra kết quả truy vấn để kiểm tra
+
+        if (data && data[0]) {
+            // Trả về tổng số người dùng
+            res.status(200).send({
+                success: true,
+                message: 'Get total user count success',
+                data: {
+                    total_users: data[0]['COUNT(*)'] // Lấy kết quả từ cột COUNT(*)
+                }
+            });
+        } else {
+            res.status(404).send({
+                success: false,
+                message: 'No users found'
+            });
+        }
     } catch (error) {
+        console.error(error);  // In lỗi ra console để kiểm tra
         res.status(500).json({ error: error.message });
     }
 }
+
 
 
 
