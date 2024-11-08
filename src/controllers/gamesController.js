@@ -42,7 +42,7 @@ const getUehGreen = async (req, res) => {
    
 
     try {
-        const data = await connection.query(' SELECT * FROM games WHERE tag = "uehgreen" ');
+        const data = await connection.query('SELECT * FROM games WHERE tag = ?', ['uehgreen']);
         res.status(200).send({ data: data[0] });
         if(!data){
             return res.status(400).send({
