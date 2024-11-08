@@ -15,7 +15,7 @@ router.get('/topgame', gamesController.getTopGame);
 // Lấy game theo tag uehreview 
 router.get('/:tag', gamesController.getUehReview);
 // Lấy game theo tag uehgreen
-router.get('/uehgreen', gamesController.getUehGreen);
+router.get('/:tag', gamesController.getUehGreen);
 // Lấy game theo tag edugames
 router.get('/edugames', gamesController.getEduGames);
 
