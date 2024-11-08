@@ -9,16 +9,7 @@ router.get("/:id", gamesController.getGameById); // Lấy game theo id
 router.post("/create", gamesController.createGame); // Tạo mới game
 router.put("/update/:id", gamesController.updateGame); // Cập nhật game
 router.delete("/delete/:id", gamesController.deleteGame); // Xóa game
-router.get('/tag/:tag', gamesController.getGameByTag);
-
-// lấy top game
-router.get("/topgame", gamesController.getTopGame);
-// Lấy game theo tag uehreview 
-router.get("/uehreview", gamesController.getUehReview);
-// Lấy game theo tag uehgreen
-router.get("/uehgreen", gamesController.getUehGreen);
-// Lấy game theo tag edugames
-router.get("/edugames", gamesController.getEduGames);
+router.get('/tag/:tag', gamesController.getGameByTag); // Lọc game theo tag
 
 
 module.exports = router;
