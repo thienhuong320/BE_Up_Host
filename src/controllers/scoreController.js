@@ -3,7 +3,7 @@ const connection = require("../config/index");
 // get all scores
 const getAllScores = async (req, res) => {
     try {
-        const [data] = await connection.query('SELECT * FROM scores'); // Giả sử bạn có bảng scores
+        const [data] = await connection.query('SELECT * FROM score'); // Giả sử bạn có bảng scores
         res.status(200).send({ data });
     } catch (error) {
         res.status(500).json({ error: error.message });
@@ -14,7 +14,7 @@ const getAllScores = async (req, res) => {
 const getScoreById = async (req, res) => {
     const { id } = req.params;
     try {
-        const [data] = await connection.query(`SELECT * FROM scores WHERE id = ?`, [id]);
+        const [data] = await connection.query(`SELECT * FROM score WHERE id = ?`, [id]);
         if (data.length === 0) {
             return res.status(404).send({ success: false, message: 'Score not found' });
         }
