@@ -19,6 +19,77 @@ const getAllGames = async (req, res) => {
     }
 }   
 // get game by id
+
+const getUehReview = async (req, res) => {
+   
+
+    try {
+        const data = await connection.query(' SELECT * FROM games WHERE tag = "uehreview" ');
+        res.status(200).send({ data: data[0] });
+        if(!data){
+            return res.status(400).send({
+                success: false,
+                message: 'Get all games failed'
+            })
+        }
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+}  
+//
+
+const getUehGreen = async (req, res) => {
+   
+
+    try {
+        const data = await connection.query(' SELECT * FROM games WHERE tag = "uehgreen" ');
+        res.status(200).send({ data: data[0] });
+        if(!data){
+            return res.status(400).send({
+                success: false,
+                message: 'Get all games failed'
+            })
+        }
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+}  
+
+//
+const getEduGames = async (req, res) => {
+   
+
+    try {
+        const data = await connection.query(' SELECT * FROM games WHERE tag = "edugames" ');
+        res.status(200).send({ data: data[0] });
+        if(!data){
+            return res.status(400).send({
+                success: false,
+                message: 'Get all games failed'
+            })
+        }
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+}  
+
+// top game
+const getTopGame = async (req, res) => {
+   
+
+    try {
+        const data = await connection.query(' SELECT * FROM games WHERE tag = "topgame" ');
+        res.status(200).send({ data: data[0] });
+        if(!data){
+            return res.status(400).send({
+                success: false,
+                message: 'Get all games failed'
+            })
+        }
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+} 
 const getGameById = async (req, res) => {
    
   
@@ -107,7 +178,9 @@ module.exports = {
     getGameById,
     createGame,
     updateGame,
-    deleteGame
+    deleteGame,
+    getUehReview,
+    getUehGreen,
+    getEduGames,
+    getTopGame
 }
-
-
