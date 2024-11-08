@@ -12,9 +12,9 @@ const getAllScores = async (req, res) => {
 
 // get by id score
 const getScoreById = async (req, res) => {
-    const { id } = req.params;
+    const { score_id } = req.params;
     try {
-        const [data] = await connection.query(`SELECT * FROM score WHERE id = ?`, [id]);
+        const [data] = await connection.query(`SELECT * FROM score WHERE score_id = ?`, [score_id]);
         if (data.length === 0) {
             return res.status(404).send({ success: false, message: 'Score not found' });
         }
