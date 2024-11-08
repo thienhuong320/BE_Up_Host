@@ -172,20 +172,22 @@ const registerUser = async (req, res) => {
 // get total users count
 const getTotalUsersCount = async (req, res) => {
     try {
-        const [data] = await connection.query('SELECT COUNT(*) AS total_users FROM user');
+        // Truy vấn đếm số lượng bản ghi trong bảng user
+        const [data] = await connection.query('SELECT COUNT(*) FROM user');
         
         // Trả về tổng số người dùng
         res.status(200).send({
             success: true,
             message: 'Get total user count success',
             data: {
-                total_users: data[1].total_users // Lấy giá trị đếm từ truy vấn
+                total_users: data[0]['COUNT(*)'] // Lấy kết quả từ cột COUNT(*)
             }
         });
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
 }
+
 
 
 module.exports = {
