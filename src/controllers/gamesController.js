@@ -38,21 +38,21 @@ const getUehReview = async (req, res) => {
 }  
 
 const getUehGreen = async (req, res) => {
-   
-
     try {
-        const data = await connection.query(' SELECT * FROM games WHERE tag = "uehgreen" ');
-        res.status(200).send({ data: data[0] });
-        if(!data){
+        // Câu truy vấn đúng với việc so sánh giá trị của cột 'tag' với chuỗi 'uehgreen'
+        const data = await connection.query('SELECT * FROM games WHERE tag = ?', ['uehgreen']);
+        if (!data || data.length === 0) {
             return res.status(400).send({
                 success: false,
-                message: 'Get all games failed'
-            })
+                message: 'No games found for the "uehgreen" tag'
+            });
         }
+        res.status(200).send({ data: data[0] });
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
-}  
+}
+
 
 
 //
