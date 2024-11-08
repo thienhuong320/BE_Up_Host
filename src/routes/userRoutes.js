@@ -9,5 +9,5 @@ router.put("/update/:id", userController.updateUser); // Cập nhật thông tin
 router.delete("/delete/:id", userController.deleteUser); // Xóa user
 router.post("/login", userController.loginUser); // Đăng nhập
 router.post("/register", userController.registerUser); // Đăng ký
-
+router.get('/total-users', userController.getTotalUsersCount); // Route lấy tổng số người dùng
 module.exports = router;
