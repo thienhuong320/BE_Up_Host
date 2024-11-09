@@ -34,7 +34,7 @@ const getUserById = async (req, res) => {
 // create user
 const createUser = async (req, res) => {
     try {
-        const { user_name, email, password, fullname, phone, dob } = req.body;
+        const { user_name, email, password, fullname, phone, dob, about_me } = req.body;
 
         // Kiểm tra người dùng đã tồn tại chưa
         const [existingUser] = await connection.query('SELECT * FROM user WHERE email = ? OR user_name = ?', [email, user_name]);
@@ -47,8 +47,8 @@ const createUser = async (req, res) => {
 
         // Tạo người dùng mới
         const [data] = await connection.query(
-            `INSERT INTO user (user_name, email, password, fullname, phone, dob) VALUES (?, ?, ?, ?, ?, ?)`, 
-            [user_name, email, password, fullname, phone, dob]
+            `INSERT INTO user (user_name, email, password, fullname, phone, dob, about_me) VALUES (?, ?, ?, ?, ?, ?)`, 
+            [user_name, email, password, fullname, phone, dob, about_me || null]
         );
 
         res.status(201).send({
@@ -73,10 +73,10 @@ const updateUser = async (req, res) => {
             });
         }
 
-        const { user_name, email, password, fullname, phone, dob } = req.body;
+        const { user_name, email, password, fullname, phone, dob, about_me } = req.body;
         const [result] = await connection.query(
             `UPDATE user SET user_name = ?, email = ?, password = ?, fullname = ?, phone = ?, dob = ? WHERE user_id = ?`,
-            [user_name, email, password, fullname, phone, dob, id]
+            [user_name, email, password, fullname, phone, dob, id, about_me || null]
         );
 
         if (result.affectedRows === 0) {
@@ -96,7 +96,6 @@ const updateUser = async (req, res) => {
         res.status(500).json({ error: error.message });
     }
 }
-
 // delete user
 const deleteUser = async (req, res) => {
     try {
