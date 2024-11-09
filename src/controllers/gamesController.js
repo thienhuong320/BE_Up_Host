@@ -61,26 +61,29 @@ const getGameById = async (req, res) => {
 // create game
 const createGame = async (req, res) => {
     try {
-        const {  game_name, description, genre, release_date, image } = req.body;
+        const { game_name, description, genre, image, release_date, tag } = req.body; // Destructure the data from the request body
         const data = await connection.query(
             "INSERT INTO games (game_name, description, genre, image, release_date, tag) VALUES (?, ?, ?, ?, ?, ?)",
             [game_name, description, genre, image, release_date, tag]
-          );
-        if(!data){
+        );
+
+        if (!data) {
             return res.status(400).send({
                 success: false,
                 message: 'Create game failed'
-            })
+            });
         }
+
         res.status(200).send({
             success: true,
             message: 'Create game success',
             data: data[0]
-        })  
+        });
     } catch (error) {
-        res.status(500).json({ error: error.message ,message: "Create game failed"});
+        res.status(500).json({ error: error.message, message: "Create game failed" });
     }
-}
+};
+
 
 // update game
 const updateGame = async (req, res) => {
