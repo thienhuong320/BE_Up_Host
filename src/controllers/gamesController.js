@@ -58,10 +58,11 @@ const getGameById = async (req, res) => {
     }
 }
 
+
 // create game
 const createGame = async (req, res) => {
     try {
-        const { game_name, description, genre, image, release_date, tag } = req.body; // Destructure the data from the request body
+        const {  game_name, description, genre, release_date, image } = req.body;
         const data = await connection.query(
             "INSERT INTO games (game_name, description, genre, image, release_date, tag) VALUES (?, ?, ?, ?, ?, ?)",
             [game_name, description, genre, image, release_date, tag]

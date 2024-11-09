@@ -6,6 +6,7 @@ const favoritesRoutes = require('./src/routes/favoritesRoutes');
 const gameLogsRoutes = require('./src/routes/gameLogsRoutes');
 const gamesRoutes = require('./src/routes/gamesRoutes');
 const scoreRoutes = require('./src/routes/scoreRoutes');
+
 require('dotenv').config();
 const connection = require('./src/config/index.js');
 
