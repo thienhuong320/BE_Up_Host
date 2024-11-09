@@ -62,7 +62,7 @@ const getGameById = async (req, res) => {
 const createGame = async (req, res) => {
     try {
         const { game_id, game_name, description, genre, release_date, image } = req.body;
-        const data = await connection.query(`INSERT INTO games (game_id, game_name, description, genre,release_date, image) VALUES (?, ?, ?, ?, ?, ?)`, [game_id, game_name, description, genre, release_date,image]);
+        const data = await connection.query(`INSERT INTO games (game_id, game_name, description, genre, image, release_date, tag) VALUES (?, ?, ?, ?, ?, ?, ?)`, [game_id, game_name, description, genre, release_date,image]);
         if(!data){
             return res.status(400).send({
                 success: false,
