@@ -4,6 +4,7 @@ const scoreController = require("../controllers/scoreController");
 
 // Define routes for scores
 router.get("/", scoreController.getAllScores); // Lấy tất cả score
+router.get("/getall", scoreController.getAllScore); // Lấy các thông tin về điểm số, người dùng và trò chơi.
 router.get("/:score_id", scoreController.getScoreById); // Lấy score theo id
 router.post("/create", scoreController.createScore); // Tạo mới score
 router.put("/update/:id", scoreController.updateScore); // Cập nhật score
