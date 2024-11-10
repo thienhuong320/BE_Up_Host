@@ -7,7 +7,9 @@ router.get("/", gameLogsController.getAllGameLogs); // Lấy tất cả game log
 router.get("/:id", gameLogsController.getGameLogById); // Lấy game log theo id
 router.post("/create", gameLogsController.createGameLog); // Tạo mới game log
 
-// Thêm route mới để lấy game chơi nhiều nhất
-router.get("/most-played", gameLogsController.getMostPlayedGame);
+
+// Add route for top scoring user
+router.get("/top-scoring-user", gameLogsController.getTopScoringUser);
+
 
 module.exports = router;
