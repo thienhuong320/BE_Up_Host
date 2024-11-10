@@ -1,18 +1,6 @@
 const connection = require("../config/index");
 
-// Get all game logs
-const getAllGameLogs = async (req, res) => {
-    try {
-        const [data] = await connection.query('SELECT * FROM game_logs');
-        res.status(200).send({
-            success: true,
-            message: 'Get all game logs success',
-            data
-        });
-    } catch (error) {
-        res.status(500).json({ error: error.message });
-    }
-};
+
 
 // Get game log by ID
 const getGameLogById = async (req, res) => {
@@ -35,7 +23,19 @@ const createGameLog = async (req, res) => {
         res.status(500).json({ error: error.message });
     }
 };
-
+// Get all game logs
+const getAllGameLogs = async (req, res) => {
+    try {
+        const [data] = await connection.query('SELECT * FROM game_logs');
+        res.status(200).send({
+            success: true,
+            message: 'Get all game logs success',
+            data
+        });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
 // Hàm lấy thông tin game phổ biến
 const getTopScoringUser = async (req, res) => {
     try {
@@ -49,18 +49,15 @@ const getTopScoringUser = async (req, res) => {
             ORDER BY quantity DESC, max_score DESC
             LIMIT 1;
         `);
-
-        if (result.length > 0) {
-            // Trả về kết quả đầu tiên, có nhiều lượt chơi và điểm cao nhất
-            const popularGame = result[0];
-            res.status(200).json(popularGame);
-        } else {
-            res.status(404).json({ message: 'No popular game found' });
-        }
+        res.status(200).send({
+            success: true,
+            message: 'Get all game logs success',
+            result
+        });
     } catch (error) {
-        console.error('Error fetching popular game:', error);
-        res.status(500).json({ message: 'Server error' });
+        res.status(500).json({ error: error.message });
     }
+        
 };
 
 module.exports = { getAllGameLogs, getGameLogById, createGameLog, getTopScoringUser };
