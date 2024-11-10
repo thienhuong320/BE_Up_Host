@@ -36,11 +36,10 @@ const createGameLog = async (req, res) => {
     }
 };
 
-
-// Get most-played game with max score
+// Hàm lấy thông tin game phổ biến
 const getTopScoringUser = async (req, res) => {
     try {
-        const [data] = await connection.query(`
+        const [result] = await db.execute(`
             SELECT u.user_name, l.game_id, g.game_name, MAX(s.score) AS max_score, COUNT(*) AS quantity
             FROM game_logs l
             JOIN games g ON l.game_id = g.game_id
@@ -50,13 +49,17 @@ const getTopScoringUser = async (req, res) => {
             ORDER BY quantity DESC, max_score DESC
             LIMIT 1;
         `);
-        res.status(200).send({
-            success: true,
-            message: 'Top scoring user retrieved successfully',
-            data: data[0] // Return the first row
-        });
+
+        if (result.length > 0) {
+            // Trả về kết quả đầu tiên, có nhiều lượt chơi và điểm cao nhất
+            const popularGame = result[0];
+            res.status(200).json(popularGame);
+        } else {
+            res.status(404).json({ message: 'No popular game found' });
+        }
     } catch (error) {
-        res.status(500).json({ error: error.message });
+        console.error('Error fetching popular game:', error);
+        res.status(500).json({ message: 'Server error' });
     }
 };
 
