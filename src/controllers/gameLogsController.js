@@ -36,4 +36,38 @@ const createGameLog = async (req, res) => {
     }
 };
 
-module.exports = { getAllGameLogs, getGameLogById, createGameLog };
+// 
+// Game log controller to get most played game
+const getMostPlayedGame = async (req, res) => {
+    try {
+        // Query để lấy game_id có số lượng game log nhiều nhất
+        const [result] = await connection.query(`
+            SELECT game_id, COUNT(*) AS play_count
+            FROM game_logs
+            GROUP BY game_id
+            ORDER BY play_count DESC
+            LIMIT 1
+        `);
+
+        // Lấy game_name từ bảng games dựa trên game_id
+        if (result.length > 0) {
+            const game_id = result[0].game_id;
+            const [gameData] = await connection.query('SELECT game_name FROM games WHERE game_id = ?', [game_id]);
+            if (gameData.length > 0) {
+                res.status(200).send({
+                    success: true,
+                    message: 'Most played game fetched successfully',
+                    data: gameData[0]
+                });
+            } else {
+                res.status(404).send({ success: false, message: 'Game not found' });
+            }
+        } else {
+            res.status(404).send({ success: false, message: 'No game logs found' });
+        }
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
+
+module.exports = { getAllGameLogs, getGameLogById, createGameLog, getMostPlayedGame };
