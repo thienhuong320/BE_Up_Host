@@ -185,6 +185,25 @@ const getTotalUsersCount = async (req, res) => {
         res.status(500).json({ error: error.message });
     }
 }
+// Get daily active users count
+const getDailyActiveUsers = async (req, res) => {
+    try {
+        const [data] = await connection.query(`
+            SELECT DATE(created_at) as date, COUNT(DISTINCT user_id) as active_users
+            FROM user
+            GROUP BY DATE(created_at)
+            ORDER BY date
+        `);
+
+        res.status(200).send({
+            success: true,
+            message: 'Get daily active users success',
+            data: data
+        });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
 
 
 module.exports = {
@@ -195,5 +214,6 @@ module.exports = {
     deleteUser,
     loginUser,
     registerUser,
-    getTotalUsersCount
+    getTotalUsersCount,
+    getDailyActiveUsers
 }
